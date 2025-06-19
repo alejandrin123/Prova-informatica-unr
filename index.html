@@ -51,7 +51,7 @@
       cursor: pointer;
     }
     .question-content {
-      background-color: #e6f4f9;
+      background-color: #d0f0f8;
       border-left: 1px solid #ccc;
       padding: 30px;
       flex-grow: 1;
@@ -88,49 +88,70 @@
 </head>
 <body>
   <div class="container">
-    <div class="question-wrapper">
-      <div class="question-box">
-        <div class="question-number">Pregunta 1</div>
-        <div class="question-points">Puntúo: 0.00 sobre 0.50</div>
-        <div class="flag">🚩 Señalar con bandera la pregunta</div>
-      </div>
-      <div class="question-content">
-        <p><strong>1. ¿Cuál es el principal objetivo del uso de las TIC en el ámbito de la salud?</strong></p>
-        <label><input type="radio" name="q1"> Reemplazar por completo al personal médico</label><br />
-        <label><input type="radio" name="q1"> Favorecer la toma de decisiones clínicas y administrativas</label><br />
-        <label><input type="radio" name="q1"> Digitalizar los edificios hospitalarios</label><br />
-        <label><input type="radio" name="q1"> Generar contenido para redes sociales médicas</label>
-      </div>
-    </div>
-    <div class="question-wrapper">
-      <div class="question-box">
-        <div class="question-number">Pregunta 2</div>
-        <div class="question-points">Puntúo: 0.00 sobre 0.50</div>
-        <div class="flag">🚩 Señalar con bandera la pregunta</div>
-      </div>
-      <div class="question-content">
-        <p><strong>2. ¿Cuál fue la primera computadora electromecánica de la historia?</strong></p>
-        <label><input type="radio" name="q2"> ENIAC</label><br />
-        <label><input type="radio" name="q2"> Clementina</label><br />
-        <label><input type="radio" name="q2"> Z1</label><br />
-        <label><input type="radio" name="q2"> Arpanet</label>
-      </div>
-    </div>
+    <!-- Preguntas serán insertadas aquí por JavaScript -->
   </div>
   <div class="navigator">
     <div class="navigator-title">Navegación dentro del examen</div>
-    <div class="navigator-grid">
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>4</div>
-      <div>5</div>
-      <div>6</div>
-      <div>7</div>
-      <div>8</div>
-      <div>9</div>
-      <div>10</div>
-    </div>
+    <div class="navigator-grid" id="navGrid"></div>
   </div>
+  <script>
+    const preguntas = [
+      {
+        texto: "¿Cuál es el principal objetivo del uso de las TIC en el ámbito de la salud?",
+        opciones: [
+          "Reemplazar por completo al personal médico",
+          "Favorecer la toma de decisiones clínicas y administrativas",
+          "Digitalizar los edificios hospitalarios",
+          "Generar contenido para redes sociales médicas"
+        ]
+      },
+      {
+        texto: "¿Cuál fue la primera computadora electromecánica de la historia?",
+        opciones: ["ENIAC", "Clementina", "Z1", "Arpanet"]
+      },
+      {
+        texto: "¿Cuál fue la primera computadora de uso científico en Argentina?",
+        opciones: ["ENIAC", "Arsat-1", "Clementina", "Sadosky"]
+      },
+      {
+        texto: "¿Qué función cumple un satélite como el Arsat-1?",
+        opciones: ["Medir temperaturas globales", "Facilitar telecomunicaciones", "Explorar la Luna", "Detectar enfermedades"]
+      },
+      {
+        texto: "¿Qué hecho dio origen a la carrera espacial en 1957?",
+        opciones: ["El desarrollo de Internet", "La creación de ENIAC", "El lanzamiento del satélite Sputnik", "La fundación de la NASA"]
+      },
+      // (Agrega las preguntas 6 a 50 de forma similar aquí...)
+    ];
+
+    const container = document.querySelector('.container');
+    const navGrid = document.getElementById('navGrid');
+
+    preguntas.forEach((pregunta, index) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'question-wrapper';
+
+      const box = document.createElement('div');
+      box.className = 'question-box';
+      box.innerHTML = `
+        <div class="question-number">Pregunta ${index + 1}</div>
+        <div class="question-points">Puntúo: 0.00 sobre 0.50</div>
+        <div class="flag">🚩 Señalar con bandera la pregunta</div>
+      `;
+
+      const content = document.createElement('div');
+      content.className = 'question-content';
+      content.innerHTML = `<p><strong>${index + 1}. ${pregunta.texto}</strong></p>` +
+        pregunta.opciones.map(opt => `<label><input type="radio" name="q${index + 1}"> ${opt}</label><br />`).join('');
+
+      wrapper.appendChild(box);
+      wrapper.appendChild(content);
+      container.appendChild(wrapper);
+
+      const navItem = document.createElement('div');
+      navItem.textContent = index + 1;
+      navGrid.appendChild(navItem);
+    });
+  </script>
 </body>
 </html>
