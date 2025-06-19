@@ -52,6 +52,19 @@
     }
     .question-container {
       margin-bottom: 2rem;
+      display: flex;
+    }
+    .question-number-box {
+      width: 60px;
+      height: 60px;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 1rem;
     }
     .navigation-box {
       position: fixed;
@@ -109,7 +122,7 @@
       summaryItem.id = `summary-${index}`;
       summaryItem.innerHTML = `
         <strong>Pregunta ${index + 1}</strong><br>
-        Puntuó: <span id="score-${index}">0.00</span><br>
+        Puntúo: <span id="score-${index}">0.00</span><br>
         sobre 0.50<br>
         <span style="color:#d63384">⚑ Señalar con bandera la pregunta</span>
       `;
@@ -117,6 +130,11 @@
 
       const questionContainer = document.createElement("div");
       questionContainer.className = "question-container";
+
+      const numberBox = document.createElement("div");
+      numberBox.className = "question-number-box";
+      numberBox.textContent = index + 1;
+      questionContainer.appendChild(numberBox);
 
       const questionDiv = document.createElement("div");
       questionDiv.className = "question";
