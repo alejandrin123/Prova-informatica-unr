@@ -1,155 +1,107 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cuestionario TIC - Simulacro</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cuestionario TIC</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f3f3f3;
+      background-color: #f5f5f5;
       margin: 0;
       padding: 0;
-    }
-    .container {
       display: flex;
-      margin: 0;
     }
     .sidebar {
-      width: 250px;
-      background-color: #fff;
-      padding: 1rem;
-      border-right: 1px solid #ccc;
-      height: 100vh;
+      width: 200px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-right: 1px solid #ddd;
     }
-    .question-summary {
+    .question-box {
       border: 1px solid #ddd;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      font-size: 14px;
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: #fff;
     }
-    .question-summary.correct {
-      border-left: 6px solid #5cb85c;
+    .question-number {
+      font-weight: bold;
+      margin-bottom: 5px;
     }
-    .question-summary.incorrect {
-      border-left: 6px solid #d9534f;
+    .question-points {
+      font-size: 0.9em;
+      color: #555;
+      margin-bottom: 5px;
+    }
+    .flag {
+      font-size: 0.85em;
+      color: #b30086;
+      cursor: pointer;
     }
     .content {
-      flex: 1;
-      padding: 2rem;
+      flex-grow: 1;
+      padding: 20px;
     }
-    .question {
-      background-color: #e8f0f3;
+    .question-content {
+      background-color: #e8f5f9;
       border: 1px solid #ccc;
-      padding: 1rem;
-      margin-bottom: 2rem;
+      padding: 15px;
+      margin-bottom: 15px;
     }
-    .options {
-      margin-top: 1rem;
-    }
-    .option {
-      margin: 0.5rem 0;
-    }
-    .navigation-box {
+    .navigator {
       position: fixed;
       top: 20px;
       right: 20px;
-      background-color: #fff;
-      padding: 1rem;
-      border: 1px solid #ccc;
+      background: white;
+      border: 1px solid #ddd;
+      padding: 10px;
     }
-    .nav-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 5px;
-    }
-    .nav-grid button {
-      width: 30px;
-      height: 30px;
-      border: none;
-      background-color: #eee;
-      cursor: pointer;
+    .navigator div {
+      margin: 2px 0;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="sidebar" id="summary"></div>
-    <div class="content" id="quiz"></div>
-    <div class="navigation-box">
-      <strong>Navegación dentro del examen</strong>
-      <div class="nav-grid" id="nav"></div>
+  <div class="sidebar">
+    <div class="question-box">
+      <div class="question-number">Pregunta 1</div>
+      <div class="question-points">Puntúo: 0.00 sobre 0.50</div>
+      <div class="flag">🚩 Señalar con bandera la pregunta</div>
     </div>
+    <div class="question-box">
+      <div class="question-number">Pregunta 2</div>
+      <div class="question-points">Puntúo: 0.00 sobre 0.50</div>
+      <div class="flag">🚩 Señalar con bandera la pregunta</div>
+    </div>
+    <!-- Repetir para todas las preguntas -->
   </div>
+  <div class="content">
+    <div class="question-content">
+      <p><strong>1. ¿Cuál es el principal objetivo del uso de las TIC en el ámbito de la salud?</strong></p>
+      <label><input type="radio" name="q1"> Reemplazar por completo al personal médico</label><br />
+      <label><input type="radio" name="q1"> Favorecer la toma de decisiones clínicas y administrativas</label><br />
+      <label><input type="radio" name="q1"> Digitalizar los edificios hospitalarios</label><br />
+      <label><input type="radio" name="q1"> Generar contenido para redes sociales médicas</label>
+    </div>
+    <!-- Repetir para cada pregunta -->
+  </div>
+  <div class="navigator">
+    <strong>Navegación dentro del examen</strong>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+    <div>6</div>
+    <div>7</div>
+    <div>8</div>
+    <div>9</div>
+    <div>10</div>
+  </div>
+</body>
+</html>
 
-  <script>
-    const data = [
-      { question: "¿Cuál es el principal objetivo del uso de las TIC en el ámbito de la salud?", options: ["Reemplazar por completo al personal médico", "Favorecer la toma de decisiones clínicas y administrativas", "Digitalizar los edificios hospitalarios", "Generar contenido para redes sociales médicas"], answer: 1 },
-      { question: "¿Cuál fue la primera computadora electromecánica de la historia?", options: ["ENIAC", "Clementina", "Z1", "Arpanet"], answer: 2 },
-      { question: "¿Cuál fue la primera computadora de uso científico en Argentina?", options: ["ENIAC", "Arsat-1", "Clementina", "Sadosky"], answer: 2 },
-      { question: "¿Qué función cumple un satélite como el Arsat-1?", options: ["Medir temperaturas globales", "Facilitar telecomunicaciones", "Explorar la Luna", "Detectar enfermedades"], answer: 1 },
-      { question: "¿Qué hecho dio origen a la carrera espacial en 1957?", options: ["El desarrollo de Internet", "La creación de ENIAC", "El lanzamiento del satélite Sputnik", "La fundación de la NASA"], answer: 2 },
-      { question: "¿Cuál fue el propósito original de la red ARPANET?", options: ["Ser una red de comunicación militar resistente a ataques", "Fomentar el comercio digital", "Crear entretenimiento virtual", "Digitalizar los registros académicos"], answer: 0 },
-      { question: "¿Qué forma de red está basada en nodos interconectados sin jerarquías fijas?", options: ["Jerárquica", "Malla", "Estrella", "Punto a punto"], answer: 1 },
-      { question: "¿Qué tipo de señal usan las computadoras modernas para representar información?", options: ["Digital", "Analógica", "Radial", "Sensorial"], answer: 0 },
-      { question: "¿Cuál es la unidad mínima de información digital?", options: ["Byte", "Bit", "Hertz", "Mega"], answer: 1 },
-      { question: "¿Quién fue uno de los primeros en imaginar una biblioteca universal a partir de redes de información?", options: ["Paul Otlet", "Bill Gates", "Ada Lovelace", "Steve Jobs"], answer: 0 }
-    ];
-
-    const summaryDiv = document.getElementById("summary");
-    const quizDiv = document.getElementById("quiz");
-    const navDiv = document.getElementById("nav");
-
-    data.forEach((q, index) => {
-      const summaryItem = document.createElement("div");
-      summaryItem.className = "question-summary";
-      summaryItem.id = `summary-${index}`;
-      summaryItem.innerHTML = `
-        <strong>Pregunta ${index + 1}</strong><br>
-        Puntúo: <span id="score-${index}">0.00</span><br>
-        sobre 0.50<br>
-        <span style="color:#d63384">⚑ Señalar con bandera la pregunta</span>
-      `;
-      summaryDiv.appendChild(summaryItem);
-
-      const questionDiv = document.createElement("div");
-      questionDiv.className = "question";
-      questionDiv.innerHTML = `
-        <p><strong>${index + 1}. ${q.question}</strong></p>
-        <div class="options">
-          ${q.options
-            .map(
-              (opt, i) => `
-            <div class="option">
-              <input type="radio" name="q${index}" id="q${index}o${i}" value="${i}" onchange="handleAnswer(${index}, ${i})">
-              <label for="q${index}o${i}">${opt}</label>
-            </div>`
-            )
-            .join("")}
-        </div>
-      `;
-      quizDiv.appendChild(questionDiv);
-
-      const navButton = document.createElement("button");
-      navButton.textContent = index + 1;
-      navDiv.appendChild(navButton);
-    });
-
-    function handleAnswer(index, selected) {
-      const correct = data[index].answer;
-      const scoreElem = document.getElementById(`score-${index}`);
-      const summaryItem = document.getElementById(`summary-${index}`);
-
-      if (selected === correct) {
-        scoreElem.textContent = "0.50";
-        summaryItem.classList.remove("incorrect");
-        summaryItem.classList.add("correct");
-      } else {
-        scoreElem.textContent = "0.00";
-        summaryItem.classList.remove("correct");
-        summaryItem.classList.add("incorrect");
-      }
-    }
   </script>
 </body>
 </html>
