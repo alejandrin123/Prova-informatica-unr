@@ -1,12 +1,154 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>¡Hola Mundo!</title>
-</head>
-<body>
-  <h1>Funciona 🎉</h1>
-  <p>Si ves esto, GitHub Pages ya está funcionando correctamente.</p>
-</body>
-</html>
+import React, { useState, useEffect } from "react";
+
+const USERS = {
+  itauana: "1234",
+  alejandrooriolibatista: "1234",
+};
+
+const questions = [
+  {
+    question: "¿Qué es Big Data?",
+    options: [
+      "Una red social",
+      "Un sistema operativo",
+      "Un gran volumen de datos que pueden ser analizados",
+      "Un tipo de archivo comprimido",
+    ],
+    answer: 2,
+  },
+  // Puedes seguir agregando hasta 50 preguntas aquí...
+];
+
+export default function SimulacroTIC2025() {
+  const [step, setStep] = useState("start");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [authError, setAuthError] = useState(false);
+  const [timer, setTimer] = useState(3600);
+  const [answers, setAnswers] = useState([]);
+
+  useEffect(() => {
+    if (step === "exam" && timer > 0) {
+      const countdown = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(countdown);
+    } else if (timer === 0) {
+      setStep("summary");
+    }
+  }, [step, timer]);
+
+  const handleLogin = () => {
+    if (USERS[username] === password) {
+      setStep("exam");
+    } else {
+      setAuthError(true);
+    }
+  };
+
+  const handleAnswer = (index, answer) => {
+    const newAnswers = [...answers];
+    newAnswers[index] = answer;
+    setAnswers(newAnswers);
+  };
+
+  const renderTimer = () => {
+    const minutes = Math.floor(timer / 60).toString().padStart(2, "0");
+    const seconds = (timer % 60).toString().padStart(2, "0");
+    return `${minutes}:${seconds}`;
+  };
+
+  if (step === "start") {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+        <div className="card">
+          <h1 className="text-2xl font-bold text-purple-700">
+            Simulacro Examen TIC 2025
+          </h1>
+          <p>Bienvenido/a al entorno simulado del Campus Virtual UNR</p>
+          <button
+            className="button mt-4"
+            onClick={() => setStep("login")}
+          >
+            Iniciar Simulación
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (step === "login") {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+        <div className="card w-96">
+          <h2 className="text-xl font-semibold mb-4">Login</h2>
+          <input
+            className="input mb-2"
+            placeholder="Usuario"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            className="input mb-2"
+            type="password"
+            placeholder="Contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {authError && (
+            <p className="text-red-500 mb-2">Credenciales inválidas</p>
+          )}
+          <button className="button w-full" onClick={handleLogin}>
+            Ingresar
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (step === "exam") {
+    return (
+      <div className="p-4">
+        <div className="flex justify-between mb-4">
+          <h2 className="text-xl font-semibold">Cuestionario Final M1</h2>
+          <div className="font-bold text-red-600">Tiempo: {renderTimer()}</div>
+        </div>
+        {questions.map((q, index) => (
+          <div key={index} className="mb-6 p-4 border rounded shadow">
+            <p className="mb-2 font-medium">
+              {index + 1}. {q.question}
+            </p>
+            {q.options.map((option, i) => (
+              <label key={i} className="block">
+                <input
+                  type="radio"
+                  name={`q-${index}`}
+                  checked={answers[index] === i}
+                  onChange={() => handleAnswer(index, i)}
+                  className="mr-2"
+                />
+                {option}
+              </label>
+            ))}
+          </div>
+        ))}
+        <button className="button" onClick={() => setStep("summary")}>Enviar</button>
+      </div>
+    );
+  }
+
+  if (step === "summary") {
+    const score = answers.reduce((acc, ans, i) => acc + (ans === questions[i].answer ? 1 : 0), 0);
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-50">
+        <div className="card">
+          <h2 className="text-xl font-bold text-purple-600 mb-2">Resumen del Examen</h2>
+          <p className="mb-4">Tu puntaje es: {score} / {questions.length}</p>
+          <button className="button" onClick={() => window.location.reload()}>
+            Volver al inicio
+          </button>
+        </div>
+      </div>
+    );
+  }
+}
