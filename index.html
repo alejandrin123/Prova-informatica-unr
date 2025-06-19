@@ -3,100 +3,134 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Campus Virtual UNR Simulado</title>
+  <title>Campus Virtual UNR</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f5f5f5; }
-    .container { max-width: 1024px; margin: 0 auto; padding: 20px; }
-    .login-page, .dashboard, .materia, .cuestionario { display: none; }
-    .active { display: block; }
-    .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
-    .btn { padding: 10px 20px; border: none; background-color: #800080; color: white; border-radius: 6px; cursor: pointer; }
-    .btn:hover { background-color: #6a006a; }
-    .error { color: red; margin-top: 10px; }
-    .link { color: #800080; cursor: pointer; display: block; margin-top: 10px; }
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #000;
+    }
+    h3, h4 {
+      color: #444;
+    }
+    input[type="text"], input[type="password"] {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #a00389;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    a {
+      color: #a00389;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+    }
+    ul {
+      padding-left: 20px;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-
-    <!-- Login Page -->
-    <div id="login" class="login-page active">
-      <div class="card">
-        <h2>Campus Virtual UNR</h2>
-        <input type="text" id="usuario" placeholder="Usuario" /><br /><br />
-        <input type="password" id="clave" placeholder="Contraseña" /><br /><br />
-        <button class="btn" onclick="login()">Ingresar</button>
-        <div id="error" class="error"></div>
-      </div>
-    </div>
-
-    <!-- Dashboard -->
-    <div id="dashboard" class="dashboard">
-      <div class="card">
-        <h3>Bienvenido/a al Campus Virtual</h3>
-        <p>Cursos accedidos recientemente</p>
-        <div class="link" onclick="mostrarMateria()">Informática y TIC aplicadas a la SALUD / 2025</div>
-      </div>
-    </div>
-
-    <!-- Materia -->
-    <div id="materia" class="materia">
-      <div class="card">
-        <h3>Informática y TIC aplicadas a la SALUD</h3>
-        <p>Contenido del módulo 1:</p>
-        <ul>
-          <li>Unidad 1: Introducción</li>
-          <li>Unidad 2: Recursos digitales</li>
-          <li>Unidad 3: TIC en salud</li>
-        </ul>
-        <p><strong>Actividad:</strong></p>
-        <div class="link" onclick="mostrarCuestionario()">Cuestionario Final Módulo 1 / PARCIAL 2025</div>
-        <div class="link" onclick="volverDashboard()">&larr; Volver</div>
-      </div>
-    </div>
-
-    <!-- Cuestionario Preview -->
-    <div id="cuestionario" class="cuestionario">
-      <div class="card">
-        <h3>Cuestionario Final Módulo 1</h3>
-        <p>Este cuestionario contiene 50 preguntas. Tiempo límite: 1 hora.</p>
-        <p>Intentos permitidos: 1 | Calificación mínima: 30</p>
-        <input type="password" placeholder="Contraseña del intento" /><br /><br />
-        <button class="btn">Iniciar examen</button>
-        <div class="link" onclick="mostrarMateria()">&larr; Volver</div>
-      </div>
-    </div>
-
-  </div>
-
+  <div class="container" id="app"></div>
   <script>
-    function login() {
-      const usuario = document.getElementById("usuario").value;
-      const clave = document.getElementById("clave").value;
-      const validos = ["itauana", "alejandrooriolibatista"];
-      if (validos.includes(usuario) && clave === "1234") {
-        document.getElementById("login").classList.remove("active");
-        document.getElementById("dashboard").classList.add("active");
-        document.getElementById("error").innerText = "";
-      } else {
-        document.getElementById("error").innerText = "Credenciales incorrectas.";
+    const users = {
+      itauana: '1234',
+      alejandrooriolibatista: '1234'
+    };
+
+    let step = 'login';
+    let currentUser = '';
+
+    const app = document.getElementById('app');
+
+    function render() {
+      if (step === 'login') {
+        app.innerHTML = `
+          <h2>Campus Virtual UNR</h2>
+          <input type="text" id="username" placeholder="Usuario" />
+          <input type="password" id="password" placeholder="Contraseña" />
+          <button onclick="login()">Ingresar</button>
+        `;
+      } else if (step === 'main') {
+        app.innerHTML = `
+          <h3>Bienvenido/a al Campus Virtual</h3>
+          <p>Cursos accedidos recientemente</p>
+          <a href="#" onclick="goToCourse()">Informática y TIC aplicadas a la SALUD / 2025</a>
+        `;
+      } else if (step === 'course') {
+        app.innerHTML = `
+          <h3>Informática y TIC aplicadas a la SALUD</h3>
+          <p>Contenido del módulo 1:</p>
+          <ul>
+            <li>Unidad 1: Introducción</li>
+            <li>Unidad 2: Recursos digitales</li>
+            <li>Unidad 3: TIC en salud</li>
+          </ul>
+          <h4>Actividad:</h4>
+          <a href="#" onclick="goToQuizPage()">Cuestionario Final Módulo 1 / PARCIAL 2025</a><br>
+          <a href="#" onclick="goBack()">&larr; Volver</a>
+        `;
+      } else if (step === 'quiz') {
+        app.innerHTML = `
+          <h3>Cuestionario Final Módulo 1</h3>
+          <p>Este cuestionario contiene 50 preguntas. Tiempo límite: 1 hora.</p>
+          <p>Intentos permitidos: 1 | Calificación mínima: 30</p>
+          <input type="password" placeholder="Contraseña del intento" />
+          <br><br><button>Iniciar examen</button>
+          <br><a href="#" onclick="goToCourse()">&larr; Volver</a>
+        `;
       }
     }
 
-    function mostrarMateria() {
-      document.querySelectorAll(".dashboard, .cuestionario").forEach(el => el.classList.remove("active"));
-      document.getElementById("materia").classList.add("active");
+    function login() {
+      const u = document.getElementById('username').value;
+      const p = document.getElementById('password').value;
+      if (users[u] && users[u] === p) {
+        currentUser = u;
+        step = 'main';
+        render();
+      } else {
+        alert('Credenciales incorrectas');
+      }
     }
 
-    function mostrarCuestionario() {
-      document.getElementById("materia").classList.remove("active");
-      document.getElementById("cuestionario").classList.add("active");
+    function goToCourse() {
+      step = 'course';
+      render();
     }
 
-    function volverDashboard() {
-      document.getElementById("materia").classList.remove("active");
-      document.getElementById("dashboard").classList.add("active");
+    function goBack() {
+      step = 'main';
+      render();
     }
+
+    function goToQuizPage() {
+      step = 'quiz';
+      render();
+    }
+
+    render();
   </script>
 </body>
 </html>
