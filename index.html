@@ -1,136 +1,69 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Campus Virtual UNR</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
       margin: 0;
-      padding: 0;
-      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+      background-color: #f3f3f3;
     }
     .container {
       max-width: 800px;
       margin: 40px auto;
-      background-color: #fff;
-      padding: 20px;
+      background: white;
       border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #000;
     }
     h2 {
       color: #000;
+      font-size: 18px;
     }
-    h3, h4 {
-      color: #444;
+    .card {
+      background-color: white;
+      padding: 25px;
+      border-radius: 8px;
+      margin-top: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     input[type="text"], input[type="password"] {
-      display: block;
-      margin: 10px 0;
-      padding: 10px;
       width: 100%;
-      box-sizing: border-box;
+      padding: 8px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
     button {
       background-color: #a00389;
-      color: #fff;
-      padding: 10px 20px;
+      color: white;
       border: none;
-      border-radius: 5px;
+      padding: 10px 20px;
+      border-radius: 4px;
       cursor: pointer;
+      margin-top: 10px;
     }
     a {
       color: #a00389;
       text-decoration: none;
-      display: inline-block;
-      margin-top: 10px;
-    }
-    ul {
-      padding-left: 20px;
     }
   </style>
 </head>
 <body>
-  <div class="container" id="app"></div>
-  <script>
-    const users = {
-      itauana: '1234',
-      alejandrooriolibatista: '1234'
-    };
-
-    let step = 'login';
-    let currentUser = '';
-
-    const app = document.getElementById('app');
-
-    function render() {
-      if (step === 'login') {
-        app.innerHTML = `
-          <h2>Campus Virtual UNR</h2>
-          <input type="text" id="username" placeholder="Usuario" />
-          <input type="password" id="password" placeholder="Contraseña" />
-          <button onclick="login()">Ingresar</button>
-        `;
-      } else if (step === 'main') {
-        app.innerHTML = `
-          <h3>Bienvenido/a al Campus Virtual</h3>
-          <p>Cursos accedidos recientemente</p>
-          <a href="#" onclick="goToCourse()">Informática y TIC aplicadas a la SALUD / 2025</a>
-        `;
-      } else if (step === 'course') {
-        app.innerHTML = `
-          <h3>Informática y TIC aplicadas a la SALUD</h3>
-          <p>Contenido del módulo 1:</p>
-          <ul>
-            <li>Unidad 1: Introducción</li>
-            <li>Unidad 2: Recursos digitales</li>
-            <li>Unidad 3: TIC en salud</li>
-          </ul>
-          <h4>Actividad:</h4>
-          <a href="#" onclick="goToQuizPage()">Cuestionario Final Módulo 1 / PARCIAL 2025</a><br>
-          <a href="#" onclick="goBack()">&larr; Volver</a>
-        `;
-      } else if (step === 'quiz') {
-        app.innerHTML = `
-          <h3>Cuestionario Final Módulo 1</h3>
-          <p>Este cuestionario contiene 50 preguntas. Tiempo límite: 1 hora.</p>
-          <p>Intentos permitidos: 1 | Calificación mínima: 30</p>
-          <input type="password" placeholder="Contraseña del intento" />
-          <br><br><button>Iniciar examen</button>
-          <br><a href="#" onclick="goToCourse()">&larr; Volver</a>
-        `;
-      }
-    }
-
-    function login() {
-      const u = document.getElementById('username').value;
-      const p = document.getElementById('password').value;
-      if (users[u] && users[u] === p) {
-        currentUser = u;
-        step = 'main';
-        render();
-      } else {
-        alert('Credenciales incorrectas');
-      }
-    }
-
-    function goToCourse() {
-      step = 'course';
-      render();
-    }
-
-    function goBack() {
-      step = 'main';
-      render();
-    }
-
-    function goToQuizPage() {
-      step = 'quiz';
-      render();
-    }
-
-    render();
-  </script>
+  <div class="container">
+    <div id="app">
+      <div id="login">
+        <h1>Campus Virtual UNR</h1>
+        <input type="text" placeholder="Usuario">
+        <input type="password" placeholder="Contraseña">
+        <button>Ingresar</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
