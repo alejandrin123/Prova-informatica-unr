@@ -24,7 +24,7 @@
       width: 95%;
       max-width: 1400px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      background-color: #fff;
+      background-color: #e3f6fb;
       border-radius: 8px;
       overflow: hidden;
       border: 1px solid #e0e0e0;
@@ -51,7 +51,7 @@
       cursor: pointer;
     }
     .question-content {
-      background-color: #d0f0f8;
+      background-color: #e3f6fb;
       border-left: 1px solid #ccc;
       padding: 30px;
       flex-grow: 1;
@@ -96,38 +96,62 @@
   </div>
   <script>
     const preguntas = [
-      {
-        texto: "¿Cuál es el principal objetivo del uso de las TIC en el ámbito de la salud?",
-        opciones: [
-          "Reemplazar por completo al personal médico",
-          "Favorecer la toma de decisiones clínicas y administrativas",
-          "Digitalizar los edificios hospitalarios",
-          "Generar contenido para redes sociales médicas"
-        ]
-      },
-      {
-        texto: "¿Cuál fue la primera computadora electromecánica de la historia?",
-        opciones: ["ENIAC", "Clementina", "Z1", "Arpanet"]
-      },
-      {
-        texto: "¿Cuál fue la primera computadora de uso científico en Argentina?",
-        opciones: ["ENIAC", "Arsat-1", "Clementina", "Sadosky"]
-      },
-      {
-        texto: "¿Qué función cumple un satélite como el Arsat-1?",
-        opciones: ["Medir temperaturas globales", "Facilitar telecomunicaciones", "Explorar la Luna", "Detectar enfermedades"]
-      },
-      {
-        texto: "¿Qué hecho dio origen a la carrera espacial en 1957?",
-        opciones: ["El desarrollo de Internet", "La creación de ENIAC", "El lanzamiento del satélite Sputnik", "La fundación de la NASA"]
-      },
-      // (Agrega las preguntas 6 a 50 de forma similar aquí...)
+      "¿Cuál es el principal objetivo del uso de las TIC en el ámbito de la salud?",
+      "¿Cuál fue la primera computadora electromecánica de la historia?",
+      "¿Cuál fue la primera computadora de uso científico en Argentina?",
+      "¿Qué función cumple un satélite como el Arsat-1?",
+      "¿Qué hecho dio origen a la carrera espacial en 1957?",
+      "¿Cuál fue el propósito original de la red ARPANET?",
+      "¿Qué forma de red está basada en nodos interconectados sin jerarquías fijas?",
+      "¿Qué tipo de señal usan las computadoras modernas para representar información?",
+      "¿Cuál es la unidad mínima de información digital?",
+      "¿Quién fue uno de los primeros en imaginar una biblioteca universal a partir de redes de información?",
+      "¿Qué concepto define a una sociedad en la que la producción, circulación y uso de la información son centrales?",
+      "¿Qué elemento se considera el valor diferencial en la sociedad de la información?",
+      "¿Qué proceso es fundamental en la sociedad de la información?",
+      "¿Qué se entiende por 'internet de las cosas'?",
+      "¿Cómo se denomina la desigualdad en el acceso a las TIC?",
+      "¿Qué expresa la 'brecha digital'?",
+      "¿Cuál es una de las características del modelo de sociedad basado en información?",
+      "¿Qué requiere una implementación eficiente de TIC en salud?",
+      "¿Qué papel cumple la información en los sistemas TIC?",
+      "¿En qué mejora el uso de TIC la actividad clínica?",
+      "¿Qué cambio social acompañó al desarrollo de grandes relojes en la Edad Media?",
+      "¿Qué paradigma surge cuando elementos analógicos se convierten en bits (1 y 0)?",
+      "¿Qué caracteriza a la era informacional según Castells?",
+      "¿Diferencia entre Sociedad de la Información y del Conocimiento?",
+      "¿A qué apunta la brecha digital?",
+      "¿Qué tres tareas básicas realizan los sistemas informáticos?",
+      "¿Qué rol cumple la informática médica?",
+      "¿Cuál fue la primera computadora programable de la historia?",
+      "¿Por qué se considera al ENIAC una máquina histórica?",
+      "¿Qué importancia tuvo el satélite Sputnik 1 de 1957?",
+      "¿Qué función cumple Arsat‑1?",
+      "¿Sobre qué base fue ideada ARPANET?",
+      "¿Cómo define Byung‑Chul Han 'infocracia'?",
+      "¿Diferencia entre sociedades disciplinarias y la infocracia?",
+      "¿Qué es la infodemia según la OMS?",
+      "¿Qué es el panoptismo digital?",
+      "¿Qué prioriza la racionalidad digital?",
+      "¿Amenaza del Big Data en salud?",
+      "¿Qué concepto relaciona libertad aparente con control mediante datos?",
+      "¿Por qué el conocimiento es clave en la Sociedad del Conocimiento?",
+      "¿Cuál es la diferencia entre datos e información?",
+      "¿Qué son las TIC?",
+      "¿Qué es la telemedicina?",
+      "¿Qué significa interoperabilidad en salud digital?",
+      "¿Qué riesgo implica el uso de IA en salud?",
+      "¿Qué beneficio traen las historias clínicas electrónicas?",
+      "¿Qué es una red informática?",
+      "¿Qué es el cloud computing?",
+      "¿Qué diferencia hay entre hardware y software?",
+      "¿Qué significa e-health?"
     ];
 
     const container = document.querySelector('.container');
     const navGrid = document.getElementById('navGrid');
 
-    preguntas.forEach((pregunta, index) => {
+    preguntas.forEach((texto, index) => {
       const wrapper = document.createElement('div');
       wrapper.className = 'question-wrapper';
 
@@ -141,8 +165,8 @@
 
       const content = document.createElement('div');
       content.className = 'question-content';
-      content.innerHTML = `<p><strong>${index + 1}. ${pregunta.texto}</strong></p>` +
-        pregunta.opciones.map(opt => `<label><input type="radio" name="q${index + 1}"> ${opt}</label><br />`).join('');
+      content.innerHTML = `<p><strong>${index + 1}. ${texto}</strong></p>` +
+        ['a)', 'b)', 'c)', 'd)'].map(op => `<label><input type="radio" name="q${index + 1}"> ${op} Opción</label><br />`).join('');
 
       wrapper.appendChild(box);
       wrapper.appendChild(content);
