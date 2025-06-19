@@ -1,106 +1,173 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"><title>Simulacro Examen</title>
-<style>
-  body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f5f5f5; display:flex; height:100vh; }
-  .sidebar { width:180px; background:white; border-right:1px solid #ccc; padding:10px; box-sizing:border-box; overflow-y:auto; }
-  .sidebar .btn { width:100%; margin-bottom:5px; padding:8px; border:none; border-radius:4px; cursor:pointer; font-size:14px; }
-  .sidebar .answered { background:#c8e6c9; } /* verde */
-  .sidebar .skipped { background:#ffd54f; }  /* amarillo */
-  .sidebar .todo    { background:#e0e0e0; }  /* gris incial */
-  .main {-flex:1; padding:20px; overflow-y:auto; }
-  .question-box { margin-bottom:20px; background:white; padding:20px; border-radius:6px; border:1px solid #ccc; }
-  .feedback { margin-top:10px; padding:10px; border-radius:4px; }
-  .feedback.correct { background:#c8e6c9; }
-  .feedback.wrong   { background:#ffcdd2; }
-  .footer { margin-top:20px; }
-  button.nav, button.submit { padding:10px 20px; font-size:14px; margin-right:10px; cursor:pointer; }
-  button.submit { background:#0078D4; color:white; border:none; border-radius:4px; }
-</style>
+  <meta charset="UTF-8">
+  <title>Simulacro TIC Salud</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+    .navbar {
+      background-color: #7e007c;
+      color: white;
+      padding: 10px 20px;
+      font-weight: bold;
+    }
+    .main {
+      display: flex;
+      padding: 20px;
+    }
+    .questions {
+      flex: 3;
+      margin-right: 20px;
+    }
+    .question-box {
+      background-color: #eaf2f3;
+      padding: 20px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+    }
+    .feedback {
+      background-color: #ffecd2;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    .answer-result {
+      margin-top: 5px;
+    }
+    .sidebar {
+      flex: 1;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      height: fit-content;
+    }
+    .sidebar h3 {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 30px);
+      gap: 5px;
+    }
+    .nav-grid button {
+      width: 30px;
+      height: 30px;
+      border: none;
+      border-radius: 3px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .btn-correct { background: #4caf50; color: white; }
+    .btn-wrong { background: #f44336; color: white; }
+    .btn-default { background: #ddd; }
+  </style>
 </head>
 <body>
-
-<div class="sidebar" id="sidebar"></div>
-
-<div class="main">
-  <div class="question-box">
-    <div id="qid" style="font-weight:bold; margin-bottom:10px;">Pregunta 1</div>
-    <div id="qtext">Aquí irá enunciado...</div>
-    <form id="qform"></form>
-    <div id="feedback"></div>
+  <div class="navbar">Simulacro TIC - Ciencias Médicas UNR</div>
+  <div class="main">
+    <div class="questions" id="questions"></div>
+    <div class="sidebar">
+      <h3>Navegación dentro del examen</h3>
+      <div class="nav-grid" id="nav"></div>
+    </div>
   </div>
-  <div class="footer">
-    <button class="nav" id="prev">Anterior</button>
-    <button class="nav" id="next">Siguiente</button>
-    <button class="submit" id="submit">Enviar</button>
-  </div>
-</div>
 
-<script>
-const questions = Array.from({length:50}, (_, i) => ({
-  question: `Enunciado de la pregunta ${i+1}`,
-  options: ['opción A','opción B','opción C','opción D'],
-  answer: 0 // Siempre la opción A como correcta
-}));
+  <script>
+    const data = [
+      {
+        q: "¿cual es el principal objetivo del uso de las TIC en el ámbito de la salud?",
+        o: ["Reemplazar por completo al personal médico", "Favorecer la toma de decisiones clínicas y administrativas", "Digitalizar los edificios hospitalarios", "Generar contenido para redes sociales médicas"],
+        a: 1
+      },
+      {
+        q: "¿cuál fue la primera computadora electromecánica de la historia?",
+        o: ["ENIAC", "Clementina", "Z1", "Arpanet"],
+        a: 2
+      },
+      {
+        q: "¿cuál fue la primera computadora de uso científico en Argentina?",
+        o: ["ENIAC", "Arsat-1", "Clementina", "Sadosky"],
+        a: 2
+      },
+      {
+        q: "¿qué función cumple un satélite como el Arsat-1?",
+        o: ["Medir temperaturas globales", "Facilitar telecomunicaciones", "Explorar la Luna", "Detectar enfermedades"],
+        a: 1
+      },
+      {
+        q: "¿qué hecho dio origen a la carrera espacial en 1957?",
+        o: ["El desarrollo de Internet", "La creación de ENIAC", "El lanzamiento del satélite Sputnik", "La fundación de la NASA"],
+        a: 2
+      },
+      {
+        q: "¿cuál fue el propósito original de la red ARPANET?",
+        o: ["Ser una red de comunicación militar resistente a ataques", "Fomentar el comercio digital", "Crear entretenimiento virtual", "Digitalizar los registros académicos"],
+        a: 0
+      },
+      {
+        q: "¿qué forma de red está basada en nodos interconectados sin jerarquías fijas?",
+        o: ["Jerárquica", "Malla", "Estrella", "Punto a punto"],
+        a: 1
+      },
+      {
+        q: "¿qué tipo de señal usan las computadoras modernas para representar información?",
+        o: ["Digital", "Analógica", "Radial", "Sensorial"],
+        a: 0
+      },
+      {
+        q: "¿cuál es la unidad mínima de información digital?",
+        o: ["Byte", "Bit", "Hertz", "Mega"],
+        a: 1
+      },
+      {
+        q: "¿quién fue uno de los primeros en imaginar una biblioteca universal a partir de redes de información?",
+        o: ["Paul Otlet", "Bill Gates", "Ada Lovelace", "Steve Jobs"],
+        a: 0
+      }
+    ];
 
-let answers = Array(50).fill(null);
-let current = 0;
-const sb = document.getElementById('sidebar');
-const qid = document.getElementById('qid');
-const qtext = document.getElementById('qtext');
-const qform = document.getElementById('qform');
-const feedback = document.getElementById('feedback');
+    const questionsDiv = document.getElementById('questions');
+    const navDiv = document.getElementById('nav');
 
-function renderSidebar() {
-  sb.innerHTML = '';
-  questions.forEach((_, i) => {
-    const btn = document.createElement('button');
-    btn.textContent = i+1;
-    btn.className = 'btn ' + (answers[i]===null?'todo':'answered');
-    btn.onclick = () => { current=i; renderQuestion(); };
-    sb.appendChild(btn);
-  });
-}
+    data.forEach((item, idx) => {
+      const box = document.createElement('div');
+      box.className = 'question-box';
+      box.innerHTML = `<strong>Pregunta ${idx + 1}</strong><br>${item.q}<br><br>`;
 
-function renderQuestion() {
-  const q = questions[current];
-  qid.textContent = `Pregunta ${current+1}`;
-  qtext.textContent = q.question;
-  qform.innerHTML = '';
-  q.options.forEach((opt, i) => {
-    const id = `opt${i}`;
-    qform.innerHTML += `
-      <div>
-        <input type="radio" name="opt" id="${id}" value="${i}" ${answers[current]===i?'checked':''}>
-        <label for="${id}">${opt}</label>
-      </div>`;
-  });
-  feedback.innerHTML = '';
-  renderSidebar();
-}
+      item.o.forEach((opt, i) => {
+        const id = `q${idx}_opt${i}`;
+        box.innerHTML += `
+          <input type="radio" name="q${idx}" id="${id}" value="${i}" onchange="check(${idx}, ${i})">
+          <label for="${id}">${opt}</label><br>`;
+      });
 
-document.getElementById('prev').onclick = () => {
-  if (current>0) current--, renderQuestion();
-};
-document.getElementById('next').onclick = () => {
-  if (current<questions.length-1) current++, renderQuestion();
-};
-document.getElementById('submit').onclick = () => {
-  const sel = qform.opt.value;
-  if (sel===undefined) return;
-  answers[current] = Number(sel);
-  const correct = answers[current]===questions[current].answer;
-  feedback.innerHTML = `<div class="feedback ${correct?'correct':'wrong'}">
-    Su respuesta es ${correct?'correcta':'incorrecta'}.
-    La respuesta correcta es: ${q.options[questions[current].answer]}
-  </div>`;
-  renderSidebar();
-};
+      box.innerHTML += `<div class="feedback" id="fb${idx}"></div>`;
+      questionsDiv.appendChild(box);
 
-renderSidebar();
-renderQuestion();
-</script>
+      const btn = document.createElement('button');
+      btn.textContent = idx + 1;
+      btn.className = 'btn-default';
+      btn.onclick = () => window.scrollTo({ top: box.offsetTop - 10, behavior: 'smooth' });
+      navDiv.appendChild(btn);
+    });
 
+    function check(qIndex, selected) {
+      const fb = document.getElementById(`fb${qIndex}`);
+      const correct = data[qIndex].a === selected;
+      fb.innerHTML = `
+        <div class="answer-result">
+          ${correct ? 'Correcto ✔' : 'Incorrecto ❌'}<br>
+          La respuesta correcta es: <strong>${data[qIndex].o[data[qIndex].a]}</strong>
+        </div>`;
+      const btn = navDiv.children[qIndex];
+      btn.className = correct ? 'btn-correct' : 'btn-wrong';
+    }
+  </script>
 </body>
 </html>
