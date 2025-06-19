@@ -10,19 +10,27 @@
       background-color: #f5f5f5;
       margin: 0;
       padding: 0;
-      display: flex;
     }
-    .sidebar {
-      width: 200px;
-      background-color: #ffffff;
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       padding: 20px;
-      border-right: 1px solid #ddd;
+    }
+    .question-wrapper {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 900px;
     }
     .question-box {
-      border: 1px solid #ddd;
-      margin-bottom: 20px;
-      padding: 10px;
+      width: 180px;
       background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-right: 10px;
+      flex-shrink: 0;
     }
     .question-number {
       font-weight: bold;
@@ -38,15 +46,11 @@
       color: #b30086;
       cursor: pointer;
     }
-    .content {
-      flex-grow: 1;
-      padding: 20px;
-    }
     .question-content {
       background-color: #e8f5f9;
       border: 1px solid #ccc;
       padding: 15px;
-      margin-bottom: 15px;
+      flex-grow: 1;
     }
     .navigator {
       position: fixed;
@@ -63,28 +67,35 @@
   </style>
 </head>
 <body>
-  <div class="sidebar">
-    <div class="question-box">
-      <div class="question-number">Pregunta 1</div>
-      <div class="question-points">Puntúo: 0.00 sobre 0.50</div>
-      <div class="flag">🚩 Señalar con bandera la pregunta</div>
+  <div class="container">
+    <div class="question-wrapper">
+      <div class="question-box">
+        <div class="question-number">Pregunta 1</div>
+        <div class="question-points">Puntúo: 0.00 sobre 0.50</div>
+        <div class="flag">🚩 Señalar con bandera la pregunta</div>
+      </div>
+      <div class="question-content">
+        <p><strong>1. ¿Cuál es el principal objetivo del uso de las TIC en el ámbito de la salud?</strong></p>
+        <label><input type="radio" name="q1"> Reemplazar por completo al personal médico</label><br />
+        <label><input type="radio" name="q1"> Favorecer la toma de decisiones clínicas y administrativas</label><br />
+        <label><input type="radio" name="q1"> Digitalizar los edificios hospitalarios</label><br />
+        <label><input type="radio" name="q1"> Generar contenido para redes sociales médicas</label>
+      </div>
     </div>
-    <div class="question-box">
-      <div class="question-number">Pregunta 2</div>
-      <div class="question-points">Puntúo: 0.00 sobre 0.50</div>
-      <div class="flag">🚩 Señalar con bandera la pregunta</div>
+    <div class="question-wrapper">
+      <div class="question-box">
+        <div class="question-number">Pregunta 2</div>
+        <div class="question-points">Puntúo: 0.00 sobre 0.50</div>
+        <div class="flag">🚩 Señalar con bandera la pregunta</div>
+      </div>
+      <div class="question-content">
+        <p><strong>2. ¿Cuál fue la primera computadora electromecánica de la historia?</strong></p>
+        <label><input type="radio" name="q2"> ENIAC</label><br />
+        <label><input type="radio" name="q2"> Clementina</label><br />
+        <label><input type="radio" name="q2"> Z1</label><br />
+        <label><input type="radio" name="q2"> Arpanet</label>
+      </div>
     </div>
-    <!-- Repetir para todas las preguntas -->
-  </div>
-  <div class="content">
-    <div class="question-content">
-      <p><strong>1. ¿Cuál es el principal objetivo del uso de las TIC en el ámbito de la salud?</strong></p>
-      <label><input type="radio" name="q1"> Reemplazar por completo al personal médico</label><br />
-      <label><input type="radio" name="q1"> Favorecer la toma de decisiones clínicas y administrativas</label><br />
-      <label><input type="radio" name="q1"> Digitalizar los edificios hospitalarios</label><br />
-      <label><input type="radio" name="q1"> Generar contenido para redes sociales médicas</label>
-    </div>
-    <!-- Repetir para cada pregunta -->
   </div>
   <div class="navigator">
     <strong>Navegación dentro del examen</strong>
@@ -99,9 +110,5 @@
     <div>9</div>
     <div>10</div>
   </div>
-</body>
-</html>
-
-  </script>
 </body>
 </html>
