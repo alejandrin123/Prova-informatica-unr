@@ -56,13 +56,26 @@
       position: fixed;
       top: 20px;
       right: 20px;
-      background: white;
-      border: 1px solid #ddd;
+      background: #fff;
+      border: 1px solid #ccc;
       padding: 10px;
+      width: 180px;
     }
-    .navigator div {
-      margin: 2px 0;
+    .navigator-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .navigator-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 5px;
+    }
+    .navigator-grid div {
+      border: 1px solid #666;
       text-align: center;
+      padding: 5px;
+      background-color: #f2f2f2;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -98,17 +111,19 @@
     </div>
   </div>
   <div class="navigator">
-    <strong>Navegación dentro del examen</strong>
-    <div>1</div>
-    <div>2</div>
-    <div>3</div>
-    <div>4</div>
-    <div>5</div>
-    <div>6</div>
-    <div>7</div>
-    <div>8</div>
-    <div>9</div>
-    <div>10</div>
+    <div class="navigator-title">Navegación dentro del examen</div>
+    <div class="navigator-grid">
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>4</div>
+      <div>5</div>
+      <div>6</div>
+      <div>7</div>
+      <div>8</div>
+      <div>9</div>
+      <div>10</div>
+    </div>
   </div>
 </body>
 </html>
