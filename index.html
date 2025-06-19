@@ -53,7 +53,8 @@
     .score-box {
       width: 60px;
       height: 60px;
-      background-color: #eee;
+      background-color: #5cb85c;
+      color: white;
       border-radius: 4px;
       display: flex;
       align-items: center;
@@ -65,36 +66,55 @@
       display: flex;
       align-items: flex-start;
     }
+    .navigation-box {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #fff;
+      padding: 1rem;
+      border: 1px solid #ccc;
+    }
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 5px;
+    }
+    .nav-grid button {
+      width: 30px;
+      height: 30px;
+      border: none;
+      background-color: #eee;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="sidebar" id="summary"></div>
     <div class="content" id="quiz"></div>
+    <div class="navigation-box">
+      <strong>Navegación dentro del examen</strong>
+      <div class="nav-grid" id="nav"></div>
+    </div>
   </div>
 
   <script>
     const data = [
-      {
-        question: "¿Cuál es el principal objetivo del uso de las TIC en el ámbito de la salud?",
-        options: [
-          "Reemplazar por completo al personal médico",
-          "Favorecer la toma de decisiones clínicas y administrativas",
-          "Digitalizar los edificios hospitalarios",
-          "Generar contenido para redes sociales médicas"
-        ],
-        answer: 1
-      },
-      {
-        question: "¿Cuál fue la primera computadora electromecánica de la historia?",
-        options: ["ENIAC", "Clementina", "Z1", "Arpanet"],
-        answer: 2
-      },
-      // ... Continúa con el resto de las preguntas siguiendo este formato
+      { question: "¿Cuál es el principal objetivo del uso de las TIC en el ámbito de la salud?", options: ["Reemplazar por completo al personal médico", "Favorecer la toma de decisiones clínicas y administrativas", "Digitalizar los edificios hospitalarios", "Generar contenido para redes sociales médicas"], answer: 1 },
+      { question: "¿Cuál fue la primera computadora electromecánica de la historia?", options: ["ENIAC", "Clementina", "Z1", "Arpanet"], answer: 2 },
+      { question: "¿Cuál fue la primera computadora de uso científico en Argentina?", options: ["ENIAC", "Arsat-1", "Clementina", "Sadosky"], answer: 2 },
+      { question: "¿Qué función cumple un satélite como el Arsat-1?", options: ["Medir temperaturas globales", "Facilitar telecomunicaciones", "Explorar la Luna", "Detectar enfermedades"], answer: 1 },
+      { question: "¿Qué hecho dio origen a la carrera espacial en 1957?", options: ["El desarrollo de Internet", "La creación de ENIAC", "El lanzamiento del satélite Sputnik", "La fundación de la NASA"], answer: 2 },
+      { question: "¿Cuál fue el propósito original de la red ARPANET?", options: ["Ser una red de comunicación militar resistente a ataques", "Fomentar el comercio digital", "Crear entretenimiento virtual", "Digitalizar los registros académicos"], answer: 0 },
+      { question: "¿Qué forma de red está basada en nodos interconectados sin jerarquías fijas?", options: ["Jerárquica", "Malla", "Estrella", "Punto a punto"], answer: 1 },
+      { question: "¿Qué tipo de señal usan las computadoras modernas para representar información?", options: ["Digital", "Analógica", "Radial", "Sensorial"], answer: 0 },
+      { question: "¿Cuál es la unidad mínima de información digital?", options: ["Byte", "Bit", "Hertz", "Mega"], answer: 1 },
+      { question: "¿Quién fue uno de los primeros en imaginar una biblioteca universal a partir de redes de información?", options: ["Paul Otlet", "Bill Gates", "Ada Lovelace", "Steve Jobs"], answer: 0 }
     ];
 
     const summaryDiv = document.getElementById("summary");
     const quizDiv = document.getElementById("quiz");
+    const navDiv = document.getElementById("nav");
 
     data.forEach((q, index) => {
       const summaryItem = document.createElement("div");
@@ -113,7 +133,7 @@
 
       const scoreBox = document.createElement("div");
       scoreBox.className = "score-box";
-      scoreBox.textContent = "0.50";
+      scoreBox.textContent = index + 1;
 
       const questionDiv = document.createElement("div");
       questionDiv.className = "question";
@@ -135,6 +155,10 @@
       questionContainer.appendChild(scoreBox);
       questionContainer.appendChild(questionDiv);
       quizDiv.appendChild(questionContainer);
+
+      const navButton = document.createElement("button");
+      navButton.textContent = index + 1;
+      navDiv.appendChild(navButton);
     });
 
     function handleAnswer(index, selected) {
