@@ -50,21 +50,8 @@
     .option {
       margin: 0.5rem 0;
     }
-    .score-box {
-      width: 60px;
-      height: 60px;
-      background-color: #5cb85c;
-      color: white;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      margin-right: 1rem;
-    }
     .question-container {
-      display: flex;
-      align-items: flex-start;
+      margin-bottom: 2rem;
     }
     .navigation-box {
       position: fixed;
@@ -131,10 +118,6 @@
       const questionContainer = document.createElement("div");
       questionContainer.className = "question-container";
 
-      const scoreBox = document.createElement("div");
-      scoreBox.className = "score-box";
-      scoreBox.textContent = index + 1;
-
       const questionDiv = document.createElement("div");
       questionDiv.className = "question";
       questionDiv.innerHTML = `
@@ -152,7 +135,6 @@
         </div>
       `;
 
-      questionContainer.appendChild(scoreBox);
       questionContainer.appendChild(questionDiv);
       quizDiv.appendChild(questionContainer);
 
